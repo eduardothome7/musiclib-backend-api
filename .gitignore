@@ -1,0 +1,23 @@
+venv/
+*.env
+*.venv
+.env/
+
+# Arquivos de cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de IDE (ex: VSCode, PyCharm)
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Banco de dados SQLite (se usar SQLite)
+*.sqlite3
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
