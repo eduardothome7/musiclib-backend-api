@@ -9,6 +9,9 @@ load_dotenv()
 def validate_token(r):
     @wraps(r)
     def decoration_function(*args, **kwargs):
+        if request.method == 'OPTIONS':
+            return r(*args, **kwargs)
+
         token = request.headers.get('Token')
 
         if not token:
