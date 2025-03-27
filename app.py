@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from controllers.artists_app import artists_app
+from controllers.songs_app import songs_app
 from models import db
 from flask_migrate import Migrate
 
@@ -21,6 +22,7 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 app.register_blueprint(artists_app)
+app.register_blueprint(songs_app)
 
 if __name__ == '__main__':
     with app.app_context():
