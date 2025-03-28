@@ -13,8 +13,18 @@ def before_request():
 
 @songs_app.route('/songs', methods=['GET'])
 def get_all():
-    items = Song.query.all()
-    return jsonify([item.to_dict() for item in items])
+    songs_artists = []
+    artists = Artist.query.all()
+    for artist in artists:
+        artist_songs = {
+            "artist_id" : artist.id,
+            "name" : artist.name,
+            "songs": [song.to_dict() for song in artist.songs]
+        }
+
+        songs_artists.append(artist_songs)
+
+    return jsonify([song_artist for song_artist in songs_artists])
 
 @songs_app.route('/songs/search', methods=['GET'])
 def search():
@@ -38,7 +48,6 @@ def add():
     new_item = Song(title=data['title'])
 
     if 'artist_id' in data:
-        print('load')
         artists = [Artist.query.get(artist_id) for artist_id in data['artist_id']]
         new_item.artists = artists
 
