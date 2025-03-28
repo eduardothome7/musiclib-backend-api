@@ -14,7 +14,10 @@ def before_request():
 @songs_app.route('/songs', methods=['GET'])
 def get_all():
     songs_artists = []
-    artists = Artist.query.all()
+
+    user_data_id = getattr(request, 'validation_data', {})
+    artists = Artist.query.filter_by(user_id=user_data_id).all()
+
     for artist in artists:
         artist_songs = {
             "artist_id" : artist.id,

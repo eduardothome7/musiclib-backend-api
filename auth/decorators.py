@@ -23,6 +23,9 @@ def validate_token(r):
         try:
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
+                validation_data = response.json()
+                request.validation_data = validation_data
+  
                 return r(*args, **kwargs)
             else:
                 return jsonify({'message': 'Token inválido'}), 403

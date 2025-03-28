@@ -12,8 +12,10 @@ def before_request():
 
 @artists_app.route('/artists', methods=['GET'])
 def get_all():
-    items = Artist.query.all()
-    return jsonify([item.to_dict() for item in items])
+    user_data_id = getattr(request, 'validation_data', {})
+    artists = Artist.query.filter_by(user_id=user_data_id).all()
+
+    return jsonify([item.to_dict() for item in artists])
 
 @artists_app.route('/artists/<int:item_id>', methods=['GET'])
 def get(item_id):
